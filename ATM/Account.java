@@ -232,4 +232,21 @@ public class Account {
 			}
 		}
 	}
+
+	public int transferFrom() {
+		Scanner scanner = new Scanner(System.in);
+		Boolean inputGiven = false;
+		int input = 0;
+		while(!inputGiven){
+			System.out.println("Type  1  to transfer from Checking Account");
+			System.out.println("Type  2  to transfer from Checking Account");
+			input = scanner.nextInt();
+			if (input > 0 && input < 3){
+				inputGiven = true;
+			}else{
+				System.out.println("Not a valid option.");
+			}
+		}
+		return input;
+	}
 }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -47,7 +48,9 @@ public class OptionMenu {
 				System.out.println("\nSelect the account you want to access: ");
 				System.out.println(" Type 1 - Checking Account");
 				System.out.println(" Type 2 - Savings Account");
-				System.out.println(" Type 3 - Exit");
+				System.out.println(" Type 3 - Investment Account");
+				System.out.println(" Type 4 - Show All Balances");
+				System.out.println(" Type 5 - Exit");
 				System.out.print("\nChoice: ");
 
 				int selection = menuInput.nextInt();
@@ -59,7 +62,14 @@ public class OptionMenu {
 				case 2:
 					getSaving(acc);
 					break;
+				case 4:
+					System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+					System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
+					break;
 				case 3:
+					getInvestment(acc);
+					break;
+				case 5:
 					end = true;
 					break;
 				default:
@@ -68,6 +78,55 @@ public class OptionMenu {
 			} catch (InputMismatchException e) {
 				System.out.println("\nInvalid Choice.");
 				menuInput.next();
+			}
+		}
+	}
+
+	private void getInvestment(Account acc) {
+		{
+			boolean end = false;
+			while (!end) {
+				try {
+					System.out.println("\nChecking Account: ");
+					System.out.println(" Type 1 - View Balance");
+					System.out.println(" Type 2 - Withdraw Funds");
+					System.out.println(" Type 3 - Deposit Funds");
+					System.out.println(" Type 4 - Transfer Funds");
+					System.out.println(" Type 5 - Exit");
+					System.out.print("\nChoice: ");
+
+					int selection = menuInput.nextInt();
+
+					switch (selection) {
+						case 1:
+							System.out.println("\nInvestment Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+							break;
+						case 2:
+							//acc.getInvestmentWithdrawInput();
+							break;
+						case 3:
+							//acc.getInvestmentDepositInput();
+							break;
+
+						case 4:
+							// write a method call here that ask for transfer from checking or savings
+							int input = acc.transferFrom();
+							if(input == 1){
+								acc.getTransferInput("Checking");
+							}else{
+								acc.getTransferInput("Savings");
+							}
+							break;
+						case 5:
+							end = true;
+							break;
+						default:
+							System.out.println("\nInvalid Choice.");
+					}
+				} catch (InputMismatchException e) {
+					System.out.println("\nInvalid Choice.");
+					menuInput.next();
+				}
 			}
 		}
 	}
